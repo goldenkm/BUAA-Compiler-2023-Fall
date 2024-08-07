@@ -1,0 +1,6 @@
+int main() {
+    int a = getint();
+    a = a bitand 0;
+    printf("%d\n", a);
+    return 0;
+}

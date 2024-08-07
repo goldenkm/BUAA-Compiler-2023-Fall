@@ -1,0 +1,13 @@
+.data
+str_0: .asciiz "Hello World!\n"
+.text
+	li $gp, 268435456
+	li $fp, 268959744
+	j main
+	
+main:
+	la $a0, str_0
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall

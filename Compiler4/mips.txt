@@ -1,0 +1,464 @@
+.data
+str_0: .asciiz ""
+str_1: .asciiz ", "
+str_2: .asciiz "\n"
+str_3: .asciiz ", "
+str_4: .asciiz ", "
+str_5: .asciiz "\n"
+.text
+	li $gp, 268435456
+	li $t0, 10
+	sw $t0, 0($gp)
+	li $t0, 1
+	sw $t0, 8($gp)
+	li $t0, 2
+	sw $t0, 12($gp)
+	li $t0, 3
+	sw $t0, 16($gp)
+	li $t0, 4
+	sw $t0, 20($gp)
+	li $t0, 5
+	sw $t0, 24($gp)
+	li $t0, 6
+	sw $t0, 28($gp)
+	li $t0, 7
+	sw $t0, 32($gp)
+	li $t0, 8
+	sw $t0, 36($gp)
+	li $t0, 9
+	sw $t0, 40($gp)
+	li $fp, 268959744
+	j main
+	
+fib:
+	sw $a0, 0($fp)
+	j Label_2
+	
+Label_2:
+	lw $t0, 0($fp)
+	li $t1, 1
+	seq $t2, $t0, $t1
+	li $t0, 0
+	sne $t1, $t2, $t0
+	bne $t1, $zero, Label_1
+	j Label_3
+	
+Label_1:
+	li $t0, 1
+	move $v0, $t0
+	jr $ra
+	j Label_3
+	
+Label_3:
+	j Label_4
+	
+Label_4:
+	j Label_6
+	
+Label_6:
+	lw $t0, 0($fp)
+	li $t1, 2
+	seq $t2, $t0, $t1
+	li $t0, 0
+	sne $t1, $t2, $t0
+	bne $t1, $zero, Label_5
+	j Label_7
+	
+Label_5:
+	li $t0, 2
+	move $v0, $t0
+	jr $ra
+	j Label_7
+	
+Label_7:
+	j Label_8
+	
+Label_8:
+	lw $t0, 0($fp)
+	li $t1, 1
+	subu $t2, $t0, $t1
+	sw $ra, 0($sp)
+	subiu $sp, $sp, 4
+	move $a0, $t2
+	move $v1, $fp
+	addiu $v1, $v1, 4
+	addiu $fp, $fp, 4
+	jal fib
+	addiu $sp, $sp, 4
+	lw $ra, 0($sp)
+	subiu $fp, $fp, 4
+	move $t0, $v0
+	sw $t0, 4($fp)
+	lw $t0, 0($fp)
+	li $t1, 2
+	subu $t2, $t0, $t1
+	sw $ra, 0($sp)
+	subiu $sp, $sp, 4
+	move $a0, $t2
+	move $v1, $fp
+	addiu $v1, $v1, 8
+	addiu $fp, $fp, 8
+	jal fib
+	addiu $sp, $sp, 4
+	lw $ra, 0($sp)
+	subiu $fp, $fp, 8
+	move $t0, $v0
+	sw $t0, 8($fp)
+	lw $t0, 4($fp)
+	lw $t1, 8($fp)
+	addu $t2, $t0, $t1
+	move $v0, $t2
+	jr $ra
+	
+main:
+	li $t0, 2
+	sw $t0, 0($fp)
+	li $t0, 5
+	sw $t0, 4($fp)
+	li $t0, 1
+	sw $t0, 8($fp)
+	li $t0, 2
+	sw $t0, 12($fp)
+	li $v0, 5
+	syscall
+	move $t0, $v0
+	sw $t0, 0($fp)
+	li $v0, 5
+	syscall
+	move $t0, $v0
+	sw $t0, 4($fp)
+	lw $t0, 0($fp)
+	lw $t1, 4($fp)
+	mul $t2, $t0, $t1
+	li $t0, -1
+	mul $t1, $t0, $t2
+	sw $ra, 0($sp)
+	subiu $sp, $sp, 4
+	li $t0, 4
+	move $a0, $t0
+	move $v1, $fp
+	addiu $v1, $v1, 16
+	sw $t1, 16($fp)
+	addiu $fp, $fp, 20
+	jal fib
+	addiu $sp, $sp, 4
+	lw $ra, 0($sp)
+	subiu $fp, $fp, 20
+	lw $t1, 16($fp)
+	move $t0, $v0
+	sw $t0, 20($fp)
+	lw $t0, 20($fp)
+	mul $t2, $t1, $t0
+	li $t0, 0
+	addu $t1, $t2, $t0
+	li $t0, 1
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	lw $t0, 4($t2)
+	li $t2, 1
+	mul $t3, $t0, $t2
+	addu $t0, $t1, $t3
+	li $t1, 1
+	li $t2, 2
+	div $t1, $t2
+	mflo $t3
+	subu $t1, $t0, $t3
+	li $t0, 5
+	mul $t2, $t1, $t0
+	sw $t2, 0($fp)
+	li $t0, 7
+	li $t1, 5923
+	mul $t2, $t0, $t1
+	li $t0, 56
+	div $t2, $t0
+	mfhi $t1
+	li $t0, 57
+	mul $t2, $t1, $t0
+	sw $ra, 0($sp)
+	subiu $sp, $sp, 4
+	li $t0, 5
+	move $a0, $t0
+	move $v1, $fp
+	addiu $v1, $v1, 24
+	sw $t2, 24($fp)
+	addiu $fp, $fp, 28
+	jal fib
+	addiu $sp, $sp, 4
+	lw $ra, 0($sp)
+	subiu $fp, $fp, 28
+	lw $t2, 24($fp)
+	move $t0, $v0
+	sw $t0, 28($fp)
+	lw $t0, 28($fp)
+	li $t1, 2
+	addu $t3, $t0, $t1
+	sw $ra, 0($sp)
+	subiu $sp, $sp, 4
+	move $a0, $t3
+	move $v1, $fp
+	addiu $v1, $v1, 32
+	sw $t2, 32($fp)
+	addiu $fp, $fp, 36
+	jal fib
+	addiu $sp, $sp, 4
+	lw $ra, 0($sp)
+	subiu $fp, $fp, 36
+	lw $t2, 32($fp)
+	move $t0, $v0
+	sw $t0, 36($fp)
+	lw $t0, 36($fp)
+	subu $t1, $t2, $t0
+	li $t0, 1
+	li $t2, 2
+	addu $t3, $t0, $t2
+	li $t0, 89
+	li $t2, 2
+	div $t0, $t2
+	mflo $t4
+	li $t0, 36
+	mul $t2, $t4, $t0
+	li $t0, 53
+	subu $t4, $t2, $t0
+	li $t0, 1
+	div $t4, $t0
+	mflo $t2
+	li $t0, 6
+	mul $t4, $t2, $t0
+	subu $t0, $t3, $t4
+	li $t2, 45
+	li $t3, 56
+	mul $t4, $t2, $t3
+	li $t2, 85
+	div $t4, $t2
+	mflo $t3
+	li $t2, 56
+	subu $t4, $t3, $t2
+	li $t2, 35
+	li $t3, 56
+	mul $t5, $t2, $t3
+	li $t2, 4
+	div $t5, $t2
+	mflo $t3
+	addu $t2, $t4, $t3
+	li $t3, 9
+	subu $t4, $t2, $t3
+	li $t2, 2
+	mul $t3, $t2, $t4
+	subu $t2, $t0, $t3
+	addu $t0, $t1, $t2
+	sw $t0, 4($fp)
+	li $t0, -1
+	li $t1, 6
+	mul $t2, $t0, $t1
+	sw $t2, 40($fp)
+	j Label_11
+	
+Label_11:
+	lw $t0, 0($fp)
+	li $t1, 100
+	slt $t2, $t0, $t1
+	li $t0, 0
+	sne $t1, $t2, $t0
+	bne $t1, $zero, Label_10
+	j Label_13
+	
+Label_10:
+	li $t0, 0
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 0
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 1
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 1
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 2
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 2
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 3
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 3
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 4
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 4
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 5
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 5
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 6
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 6
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 7
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 7
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 8
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 8
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	li $t0, 9
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	lw $t1, 40($fp)
+	lw $t2, 40($fp)
+	mul $t3, $t1, $t2
+	addu $t1, $t0, $t3
+	li $t0, 9
+	sll $t0, $t0, 2
+	addu $t2, $gp, $t0
+	sw $t1, 4($t2)
+	j Label_12
+	
+Label_12:
+	lw $t0, 0($fp)
+	li $t1, 1
+	addu $t2, $t0, $t1
+	sw $t2, 0($fp)
+	j Label_11
+	
+Label_13:
+	j Label_14
+	
+Label_14:
+	li $t0, 0
+	sw $t0, 0($fp)
+	j Label_16
+	
+Label_16:
+	lw $t0, 0($fp)
+	li $t1, 10
+	slt $t2, $t0, $t1
+	li $t0, 0
+	sne $t1, $t2, $t0
+	bne $t1, $zero, Label_15
+	j Label_18
+	
+Label_15:
+	lw $t0, 0($fp)
+	sll $t0, $t0, 2
+	addu $t1, $gp, $t0
+	lw $t0, 4($t1)
+	la $a0, str_0
+	li $v0, 4
+	syscall
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, str_1
+	li $v0, 4
+	syscall
+	lw $t0, 0($fp)
+	li $t1, 1
+	addu $t2, $t0, $t1
+	sw $t2, 0($fp)
+	j Label_17
+	
+Label_17:
+	j Label_16
+	
+Label_18:
+	j Label_19
+	
+Label_19:
+	lw $t0, 0($fp)
+	lw $t1, 4($fp)
+	lw $t2, 40($fp)
+	la $a0, str_2
+	li $v0, 4
+	syscall
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, str_3
+	li $v0, 4
+	syscall
+	move $a0, $t1
+	li $v0, 1
+	syscall
+	la $a0, str_4
+	li $v0, 4
+	syscall
+	move $a0, $t2
+	li $v0, 1
+	syscall
+	la $a0, str_5
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall

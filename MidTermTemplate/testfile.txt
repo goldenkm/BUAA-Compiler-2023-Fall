@@ -1,0 +1,16 @@
+const int CONV = 0xfff;
+
+int func() {
+   return 0X86ab;
+}
+
+int main()
+{
+    int PI = CONV + func();
+
+    repeat{
+        PI = PI + 1;
+
+    }until(PI > 100);
+    return 0;
+}

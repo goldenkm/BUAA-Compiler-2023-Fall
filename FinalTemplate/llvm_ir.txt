@@ -1,0 +1,18 @@
+declare i32 @getint()
+declare void @putint(i32)
+declare void @putch(i32)
+declare void @putstr(i8*)
+
+define dso_local i32 @main() #0 {
+	%local_var_0 = alloca i32
+	%local_var_1 = call i32 @getint()
+	store i32 %local_var_1, i32* %local_var_0
+	%local_var_2 = load i32, i32* %local_var_0
+	%local_var_3 = and i32 %local_var_2, 0
+	store i32 %local_var_3, i32* %local_var_0
+	%local_var_4 = load i32, i32* %local_var_0
+	call void @putint(i32 %local_var_4)
+	call void @putch(i32 10)
+	
+	ret i32 0
+}
